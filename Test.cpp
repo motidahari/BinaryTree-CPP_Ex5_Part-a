@@ -27,6 +27,7 @@ TEST_CASE("Test for the tree of int"){
   std::vector<int> InOrder = {20, 30, 40, 50, 60, 70, 80};      
   std::vector<int> PreOrder = {50, 30, 20, 40, 70, 60, 80};      
   BinaryTree<int> tree_of_ints;
+  
 
 
   CHECK_NOTHROW(tree_of_ints.add_root(50));
