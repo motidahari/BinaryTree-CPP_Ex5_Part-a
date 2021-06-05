@@ -12,6 +12,7 @@ SOURCES=$(wildcard $(SOURCE_PATH)/*.cpp)
 HEADERS=$(wildcard $(SOURCE_PATH)/*.hpp)
 OBJECTS=$(subst sources/,objects/,$(subst .cpp,.o,$(SOURCES)))
 
+<<<<<<< HEAD
 run: test1 test2 test3
 
 test1: TestRunner.o StudentTest1.o  $(OBJECTS)
@@ -22,10 +23,15 @@ test2: TestRunner.o StudentTest2.o  $(OBJECTS)
 
 test3: TestRunner.o StudentTest3.o  $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
+=======
+run: demo
+	./$^
+>>>>>>> master
 
 demo: Demo.o $(OBJECTS) 
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
+<<<<<<< HEAD
 
 StudentTest1.cpp:  # Michael Trushkin
 	curl https://raw.githubusercontent.com/miko-t/binaryTreeCpp/main/Test.cpp > $@
@@ -42,6 +48,17 @@ tidy:
 
 valgrind: test1
 	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test1 2>&1 | { egrep "lost| at " || true; }
+=======
+test: TestCounter.o Test.o $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+tidy:
+	clang-tidy $(HEADERS) $(TIDY_FLAGS) --
+
+valgrind: demo test
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./demo 2>&1 | { egrep "lost| at " || true; }
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test 2>&1 | { egrep "lost| at " || true; }
+>>>>>>> master
 
 %.o: %.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) --compile $< -o $@
